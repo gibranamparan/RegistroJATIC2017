@@ -1,0 +1,40 @@
+﻿@model RegistroJATICS.Models.Taller
+
+@{
+    ViewBag.Title = "Borrar";
+}
+
+<h2>Borrar Taller</h2>
+
+<h3>¿Estás seguro que quieres eliminar este taller?</h3>
+<div>
+    <h4>Taller</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre_Taller)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre_Taller)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Borrar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar a Lista", "Index")
+        </div>
+    }
+</div>

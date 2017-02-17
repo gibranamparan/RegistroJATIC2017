@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title-Registro JATIC 2017</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top !important">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/Home/Index" class="navbar-brand"> <img src="~/MediaResources/logoJornada.png" alt="Company logo" width="58" height="23" /></a>
+                
+                @*@Html.ActionLink("Registro JATIC", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            
+            <div class="navbar-collapse collapse">
+                @if (Request.IsAuthenticated && Context.User.IsInRole("admin"))
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Talleres", "Index", "Tallers")</li>
+                        <li>@Html.ActionLink("Instituciones", "Index", "Institucions")</li>
+                    </ul>
+                }                
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - JATIC</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

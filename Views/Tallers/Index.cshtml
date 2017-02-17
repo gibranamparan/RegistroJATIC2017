@@ -1,0 +1,39 @@
+﻿@model IEnumerable<RegistroJATICS.Models.Taller>
+
+@{
+    ViewBag.Title = "Lista de Talleres";
+}
+
+<h2>Talleres</h2>
+
+<p>
+    @Html.ActionLink("Agregar Taller", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre_Taller)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre_Taller)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.ID_Taller }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.ID_Taller }) |
+            @Html.ActionLink("Borrar", "Delete", new { id=item.ID_Taller })
+        </td>
+    </tr>
+}
+
+</table>

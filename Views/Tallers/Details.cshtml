@@ -1,0 +1,34 @@
+﻿@model RegistroJATICS.Models.Taller
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Taller</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre_Taller)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre_Taller)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_Taller }) |
+    @Html.ActionLink("Regresar a Lista", "Index")
+</p>
