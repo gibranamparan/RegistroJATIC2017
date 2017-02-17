@@ -218,6 +218,10 @@
     <Compile Include="Migrations\201702110759419_pendingchanges2.Designer.cs">
       <DependentUpon>201702110759419_pendingchanges2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702172326558_AddColumnCantidadPArticipantesToTaller.cs" />
+    <Compile Include="Migrations\201702172326558_AddColumnCantidadPArticipantesToTaller.Designer.cs">
+      <DependentUpon>201702172326558_AddColumnCantidadPArticipantesToTaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -326,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702110759419_pendingchanges2.resx">
       <DependentUpon>201702110759419_pendingchanges2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702172326558_AddColumnCantidadPArticipantesToTaller.resx">
+      <DependentUpon>201702172326558_AddColumnCantidadPArticipantesToTaller.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

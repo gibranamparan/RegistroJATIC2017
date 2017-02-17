@@ -79,7 +79,7 @@ namespace RegistroJATICS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_Taller,Nombre_Taller,Descripcion")] Taller taller)
+        public ActionResult Edit([Bind(Include = "ID_Taller,Nombre_Taller,Descripcion,CantidadParticipantes")] Taller taller)
         {
             if (ModelState.IsValid)
             {

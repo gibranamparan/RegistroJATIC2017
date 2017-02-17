@@ -15,7 +15,9 @@ namespace RegistroJATICS.Models
         public string Nombre_Taller { get; set; }
         [Display(Name="Descripción")]
         public string Descripcion { get; set; }
-
+        [Required(ErrorMessage = "Ingrese el límite de participantes en el taller")]
+        [Display(Name = "Participantes")]
+        public int CantidadParticipantes { get; set; }
         public virtual ICollection<ApplicationUser> Usuarios { get; set; }
     }
 }
