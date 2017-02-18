@@ -20,6 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.CantidadParticipantes)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cantRegistrados)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -28,10 +31,13 @@
             @Html.DisplayFor(modelItem => item.Nombre_Taller)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
+            @Html.DisplayFor(modelItem => item.resumenDescripcion)
         </td>
         <td>
             @Html.DisplayFor(model => item.CantidadParticipantes)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.cantRegistrados)
         </td>
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.ID_Taller }) |

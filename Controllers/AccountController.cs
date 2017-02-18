@@ -153,8 +153,15 @@ namespace RegistroJATICS.Controllers
             }
             else
             {
-                ViewBag.Institucion = new SelectList(db.Institucions, "Nombre", "Nombre");
-                ViewBag.Taller = new SelectList(db.Talleres, "ID_Taller", "Nombre_Taller");
+                /*ViewBag.Institucion = new SelectList(db.Institucions, "Nombre", "Nombre");
+                ViewBag.Taller = new SelectList(db.Talleres, "ID_Taller", "Nombre_Taller");*/
+
+                ViewBag.Institucion = new SelectList(db.Institucions.OrderBy(ins => ins.Nombre), "Nombre", "Nombre");
+                var talleres = db.Talleres.OrderBy(tall => tall.Nombre_Taller);
+                string defDescripcion = talleres.FirstOrDefault().Descripcion;
+                ViewBag.defDescripcion = defDescripcion;
+                ViewBag.Taller = new SelectList(talleres, "ID_Taller", "Nombre_Taller");
+
                 return View();
             }            
         }
@@ -183,8 +190,11 @@ namespace RegistroJATICS.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                ViewBag.Institucion = new SelectList(db.Institucions, "Nombre", "Nombre", user.Nombre);
-                ViewBag.Taller = new SelectList(db.Talleres, "ID_Taller", "Nombre_Taller", user.ID_Taller);
+                ViewBag.Institucion = new SelectList(db.Institucions.OrderBy(ins=>ins.Nombre), "Nombre", "Nombre", user.Nombre);
+                var talleres = db.Talleres.OrderBy(tall => tall.Nombre_Taller);
+                string defDescripcion = talleres.FirstOrDefault().Descripcion;
+                ViewBag.defDescripcion = defDescripcion;
+                ViewBag.Taller = new SelectList(talleres, "ID_Taller", "Nombre_Taller", user.ID_Taller);
                 AddErrors(result);
             }           
             
@@ -421,6 +431,26 @@ namespace RegistroJATICS.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }//
+
+        // GET: /Account/ExternalLoginFailure
+        [Authorize(Roles = "admin")]
+        public ActionResult Delete(string id)
+        {
+            var user = db.Users.Find(id);
+            return View(user);
+        }
+
+        // GET: /Account/ExternalLoginFailure
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult ConfirmDelete(string id)
+        {
+            var user = db.Users.Find(id);
+            int tallerID = user.ID_Taller;
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("Details","Tallers",new { id = tallerID });
         }
 
         protected override void Dispose(bool disposing)

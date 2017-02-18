@@ -124,5 +124,13 @@ namespace RegistroJATICS.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [AllowAnonymous]
+        public JsonResult getDescripcion(int id)
+        {
+            string descripcion = db.Talleres.Find(id).Descripcion;
+            var res = new { descripcion = descripcion };
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
     }
 }

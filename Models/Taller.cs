@@ -16,8 +16,17 @@ namespace RegistroJATICS.Models
         [Display(Name="Descripción")]
         public string Descripcion { get; set; }
         [Required(ErrorMessage = "Ingrese el límite de participantes en el taller")]
-        [Display(Name = "Participantes")]
+        [Display(Name = "Cupo Máximo")]
         public int CantidadParticipantes { get; set; }
         public virtual ICollection<ApplicationUser> Usuarios { get; set; }
+
+        [Display(Name = "Participantes Registrados")]
+        public int cantRegistrados { get { return this.Usuarios != null ? this.Usuarios.Count() : 0; } }
+
+        [Display(Name = "Descripción")]
+        public string resumenDescripcion { get {
+                return String.IsNullOrEmpty(this.Descripcion) ? "No hay descripción disponible" :
+                    (this.Descripcion.Length >= 100 ? this.Descripcion.Substring(0, 100)+"..." : this.Descripcion);
+            } }
     }
 }
