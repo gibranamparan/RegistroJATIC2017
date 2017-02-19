@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RegistroJATICS.Models;
+using System.Net;
+using System.Data.Entity;
 
 namespace RegistroJATICS.Controllers
 {
@@ -199,6 +201,29 @@ namespace RegistroJATICS.Controllers
             }           
             
             // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        // GET:/Account/Edit
+        [Authorize(Roles = "admin,visitante")]
+        public ActionResult Edit(string id)
+        {
+            var user = db.Users.Find(id);
+            return View(user);
+        }
+
+        [Authorize(Roles = "admin,visitante")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include="Email,PasswordHash,SecurityStamp,Id,UserName,Nombre,NombreCompleto,ID_Taller")] ApplicationUser model)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(model).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+
             return View(model);
         }
 
