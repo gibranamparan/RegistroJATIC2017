@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Registro";
     string defDescripcion = ViewBag.defDescripcion;
+    int CantidadParticipantes = ViewBag.CantidadParticipantes;
+    int cantRegistrados = ViewBag.cantRegistrados;
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -83,9 +85,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button type="button" class="btn btn-default" 
+                <button id="btnRegistrar"
+                        type="button" class="btn btn-default" 
                         data-toggle="modal" 
-                        data-target="#myModal">Registrar</button>
+                        data-target="#myModal"
+                        @(cantRegistrados>=CantidadParticipantes?"disabled":"")
+                        >Registrar</button>
+                <span id="msgCupoMaximo" style="display:none" class="alert-danger">Cupo agotado</span>
             </div>
         </div>
     }
@@ -116,6 +122,18 @@
                 success: function (result, status, xhr) {
                     descripcion = result.descripcion == null ? "No hay descripción disponible"
                         : result.descripcion;
+
+                    CantidadParticipantes = result.CantidadParticipantes;
+                    cantRegistrados = result.cantRegistrados;
+
+                    $("#btnRegistrar").prop("disabled", cantRegistrados >= CantidadParticipantes)
+                    if (cantRegistrados >= CantidadParticipantes){
+                        $("#msgCupoMaximo").fadeIn();
+                    } else {
+                        $("#msgCupoMaximo").fadeOut();
+                    }
+
+
                     $("#descripcionTaller").slideUp(500).slideDown(500);
                     $("#descripcionTaller>p").fadeOut(500).fadeIn(500);
                     setTimeout(function () { $("#descripcionTaller>p").html(descripcion) }, 500);

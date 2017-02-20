@@ -162,6 +162,10 @@ namespace RegistroJATICS.Controllers
                 var talleres = db.Talleres.OrderBy(tall => tall.Nombre_Taller);
                 string defDescripcion = talleres.FirstOrDefault().Descripcion;
                 ViewBag.defDescripcion = defDescripcion;
+                int CantidadParticipantes = talleres.FirstOrDefault().CantidadParticipantes;
+                ViewBag.CantidadParticipantes = CantidadParticipantes;
+                int cantRegistrados = talleres.FirstOrDefault().cantRegistrados;
+                ViewBag.cantRegistrados = cantRegistrados;
                 ViewBag.Taller = new SelectList(talleres, "ID_Taller", "Nombre_Taller");
 
                 return View();
@@ -194,14 +198,14 @@ namespace RegistroJATICS.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                ViewBag.Institucion = new SelectList(db.Institucions.OrderBy(ins=>ins.Nombre), "Nombre", "Nombre", user.Nombre);
-                var talleres = db.Talleres.OrderBy(tall => tall.Nombre_Taller);
-                string defDescripcion = talleres.FirstOrDefault().Descripcion;
-                ViewBag.defDescripcion = defDescripcion;
-                ViewBag.Taller = new SelectList(talleres, "ID_Taller", "Nombre_Taller", user.ID_Taller);
                 AddErrors(result);
-            }           
-            
+            }
+            ViewBag.Institucion = new SelectList(db.Institucions.OrderBy(ins => ins.Nombre), "Nombre", "Nombre", model.Nombre_Institucion);
+            var talleres = db.Talleres.OrderBy(tall => tall.Nombre_Taller);
+            string defDescripcion = talleres.FirstOrDefault().Descripcion;
+            ViewBag.defDescripcion = defDescripcion;
+            ViewBag.Taller = new SelectList(talleres, "ID_Taller", "Nombre_Taller", model.ID_Taller);
+
             // If we got this far, something failed, redisplay form
             return View(model);
         }

@@ -128,8 +128,14 @@ namespace RegistroJATICS.Controllers
         [AllowAnonymous]
         public JsonResult getDescripcion(int id)
         {
-            string descripcion = db.Talleres.Find(id).Descripcion;
-            var res = new { descripcion = descripcion };
+            var taller = db.Talleres.Find(id);
+            string descripcion = taller.Descripcion;
+            int CantidadParticipantes = taller.CantidadParticipantes;
+            int cantRegistrados = taller.cantRegistrados;
+            var res = new { descripcion = descripcion,
+                CantidadParticipantes = CantidadParticipantes,
+                cantRegistrados = cantRegistrados
+            };
             return Json(res, JsonRequestBehavior.AllowGet);
         }
     }
