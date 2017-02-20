@@ -175,7 +175,9 @@ namespace RegistroJATICS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            var taller = db.Talleres.Find(model.ID_Taller);
+            //Si todavia hay cupo
+            if (ModelState.IsValid && taller.cantRegistrados < taller.CantidadParticipantes)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, ID_Taller = model.ID_Taller, Nombre = model.Nombre_Institucion, NombreCompleto  = model.NombreAsistente };
                 var result = await UserManager.CreateAsync(user, model.Password);
