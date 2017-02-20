@@ -433,7 +433,7 @@ namespace RegistroJATICS.Controllers
             return View();
         }//
 
-        // GET: /Account/ExternalLoginFailure
+        // GET: /Account/Delete/:id
         [Authorize(Roles = "admin")]
         public ActionResult Delete(string id)
         {
@@ -441,7 +441,7 @@ namespace RegistroJATICS.Controllers
             return View(user);
         }
 
-        // GET: /Account/ExternalLoginFailure
+        // POST: /Account/ConfirmDelete/:id
         [Authorize(Roles = "admin")]
         [HttpPost]
         public ActionResult ConfirmDelete(string id)
@@ -450,6 +450,35 @@ namespace RegistroJATICS.Controllers
             int tallerID = user.ID_Taller;
             db.Users.Remove(user);
             return RedirectToAction("Details","Tallers",new { id = tallerID });
+        }
+
+        // GET: /Account/Edit/:id
+        [Authorize(Roles = "admin")]
+        public ActionResult Edit(string id)
+        {
+            var user = db.Users.Find(id);
+            //SELECT LIST PARA NOMBRE DE INSTITUCION
+            ViewBag.Nombre = new SelectList(db.Institucions.ToList(), "Nombre", "Nombre");
+            ViewBag.ID_Taller = new SelectList(db.Talleres.ToList(), "ID_Taller", "Nombre_Taller");
+            return View(user);
+        }
+
+        // POST: /Account/Edit/
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public ActionResult Edit(ApplicationUser user)
+        {
+            if (ModelState.IsValid) { 
+                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Details", "Tallers", new { id = user.ID_Taller });
+            }
+            //Algo salio mal y se muestra la misma ventana de edicion otravez
+                //SELECT LIST PARA NOMBRE DE INSTITUCION
+            ViewBag.Nombre = new SelectList(db.Institucions.ToList(), "Nombre", "Nombre");
+                //SELECT LIST PARA NOMBRE DE TALLER
+            ViewBag.ID_Taller = new SelectList(db.Talleres.ToList(), "ID_Taller", "Nombre_Taller");
+            return View(user);
         }
 
         protected override void Dispose(bool disposing)
