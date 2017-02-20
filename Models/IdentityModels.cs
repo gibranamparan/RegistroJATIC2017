@@ -48,6 +48,5 @@ namespace RegistroJATICS.Models
         {
             return new ApplicationDbContext();
         }
-        
     }
 }

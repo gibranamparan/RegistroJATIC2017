@@ -8,6 +8,7 @@
 <h4>Crear una Nueva Cuenta.</h4>
 <hr />
 <div class="alert alert-danger" role="alert">El <strong>Nombre de Usuario</strong> será el usuario utilizado para tu sesión<br />El <strong>Nombre Completo</strong> será el que aparecerá en tu certificado</div>
+<div class="alert alert-info">Introduce un <strong>password</strong> fácil de recordar, solamente se pide para indetificarte dentro del sistema de registro.</div>
 <div class="row">
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal col-md-8", role = "form" }))
     {
@@ -50,6 +51,7 @@
             @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                <span class="alert alert-info">Mínimo 4 caracteres.</span>
             </div>
         </div>
         <div class="form-group">

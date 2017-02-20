@@ -449,7 +449,6 @@ namespace RegistroJATICS.Controllers
             var user = db.Users.Find(id);
             int tallerID = user.ID_Taller;
             db.Users.Remove(user);
-            db.SaveChanges();
             return RedirectToAction("Details","Tallers",new { id = tallerID });
         }
 
