@@ -55,7 +55,8 @@
                         <td>@Html.DisplayFor(model=>asistente.NombreCompleto)</td>
                         <td>@Html.DisplayFor(model => asistente.Institucion.Nombre)</td>
                         <td>
-                            @Html.ActionLink("Eliminar","Delete","Account",new { id = asistente.Id },null)
+                            @Html.ActionLink("Eliminar","Delete","Account",new { id = asistente.Id },null) |
+                            @Html.ActionLink("Editar", "Edit", "Account", new { id = asistente.Id }, null)
                         </td>
                     </tr>
                 }
