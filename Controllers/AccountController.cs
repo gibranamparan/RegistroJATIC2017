@@ -479,7 +479,7 @@ namespace RegistroJATICS.Controllers
 
         // GET: /Account/Edit/:id
         [Authorize(Roles = "admin")]
-        public ActionResult Edit(string id)
+        public ActionResult Edit2(string id)
         {
             var user = db.Users.Find(id);
             //SELECT LIST PARA NOMBRE DE INSTITUCION
@@ -491,7 +491,7 @@ namespace RegistroJATICS.Controllers
         // POST: /Account/Edit/
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public ActionResult Edit(ApplicationUser user)
+        public ActionResult Edit2(ApplicationUser user)
         {
             if (ModelState.IsValid) { 
                 db.Entry(user).State = System.Data.Entity.EntityState.Modified;
