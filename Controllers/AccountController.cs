@@ -495,8 +495,8 @@ namespace RegistroJATICS.Controllers
         {
             var user = db.Users.Find(id);
             //SELECT LIST PARA NOMBRE DE INSTITUCION
-            ViewBag.Nombre = new SelectList(db.Institucions.ToList(), "Nombre", "Nombre");
-            ViewBag.ID_Taller = new SelectList(db.Talleres.ToList(), "ID_Taller", "Nombre_Taller");
+            ViewBag.Nombre = new SelectList(db.Institucions.ToList(), "Nombre", "Nombre",user.Nombre);
+            ViewBag.ID_Taller = new SelectList(db.Talleres.ToList(), "ID_Taller", "Nombre_Taller",user.ID_Taller);
             return View("Edit2",user);
         }
 
