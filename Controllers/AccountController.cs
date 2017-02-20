@@ -474,7 +474,13 @@ namespace RegistroJATICS.Controllers
             var user = db.Users.Find(id);
             int tallerID = user.ID_Taller;
             db.Users.Remove(user);
-            return RedirectToAction("Details","Tallers",new { id = tallerID });
+            int removidos = db.SaveChanges();
+            if (removidos > 0) { 
+                return RedirectToAction("Details","Tallers",new { id = tallerID });
+            }else
+            {
+                return View(user);
+            }
         }
 
         // GET: /Account/Edit/:id
@@ -485,7 +491,7 @@ namespace RegistroJATICS.Controllers
             //SELECT LIST PARA NOMBRE DE INSTITUCION
             ViewBag.Nombre = new SelectList(db.Institucions.ToList(), "Nombre", "Nombre");
             ViewBag.ID_Taller = new SelectList(db.Talleres.ToList(), "ID_Taller", "Nombre_Taller");
-            return View(user);
+            return View("Edit2",user);
         }
 
         // POST: /Account/Edit/
@@ -503,7 +509,7 @@ namespace RegistroJATICS.Controllers
             ViewBag.Nombre = new SelectList(db.Institucions.ToList(), "Nombre", "Nombre");
                 //SELECT LIST PARA NOMBRE DE TALLER
             ViewBag.ID_Taller = new SelectList(db.Talleres.ToList(), "ID_Taller", "Nombre_Taller");
-            return View(user);
+            return View("Edit2", user);
         }
 
         protected override void Dispose(bool disposing)
