@@ -71,9 +71,13 @@ namespace RegistroJATICS.Models
         [Display(Name = "Nombre Completo")]
         public string NombreAsistente { get; set; }
 
-        [Required(ErrorMessage = "Debe de ingresar un nombre de usuario")]
+        [Required(ErrorMessage = "Debe de ingresar un nombre un taller")]
         [Display(Name = "Taller")]
         public int ID_Taller { get; set; }
+
+        [Required(ErrorMessage = "Debe de ingresar un nombre un taller")]
+        [Display(Name = "Taller")]
+        public int ID_Taller2 { get; set; }
 
         //[Required(ErrorMessage = "Debe de ingresar un nombre de institución")]
         [Display(Name = "Institucion")]

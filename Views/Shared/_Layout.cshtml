@@ -26,7 +26,8 @@
                 @if (Request.IsAuthenticated && Context.User.IsInRole("admin"))
                 {
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Talleres", "Index", "Tallers")</li>
+                        <li>@Html.ActionLink("Talleres 28-Feb", "Index", "Tallers")</li>
+                        <li>@Html.ActionLink("Talleres 01-Mar", "Index", "Taller2")</li>
                         <li>@Html.ActionLink("Instituciones", "Index", "Institucions")</li>
                     </ul>
                 }                

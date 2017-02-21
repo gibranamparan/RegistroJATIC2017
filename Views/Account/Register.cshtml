@@ -4,6 +4,11 @@
     string defDescripcion = ViewBag.defDescripcion;
     int CantidadParticipantes = ViewBag.CantidadParticipantes;
     int cantRegistrados = ViewBag.cantRegistrados;
+
+    string defDescripcion2 = ViewBag.defDescripcion2;
+    int CantidadParticipantes2 = ViewBag.CantidadParticipantes2;
+    int cantRegistrados2 = ViewBag.cantRegistrados2;
+
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -12,53 +17,60 @@
 <div class="alert alert-danger" role="alert">El <strong>Nombre de Usuario</strong> será el usuario utilizado para tu sesión<br />El <strong>Nombre Completo</strong> será el que aparecerá en tu certificado</div>
 <div class="alert alert-info">Introduce un <strong>password</strong> fácil de recordar, solamente se pide para indetificarte dentro del sistema de registro.</div>
 <div class="row">
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal col-md-8", role = "form" }))
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal col-md-6", role = "form" }))
     {
         @Html.AntiForgeryToken()
         
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
                 @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.NombreAsistente, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.NombreAsistente, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
                 @Html.TextBoxFor(m => m.NombreAsistente, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model, "Taller", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model, "Taller 28-Feb", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
                 @Html.DropDownListFor(model => model.ID_Taller, (SelectList)ViewBag.Taller, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ID_Taller, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Nombre_Institucion, "Institucion", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model, "Taller 01-Mar", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.ID_Taller2, (SelectList)ViewBag.Taller2, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_Taller2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre_Institucion, "Institucion", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
                 @Html.DropDownListFor(model => model.Nombre_Institucion, (SelectList)ViewBag.Institucion, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Nombre_Institucion, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                 <span class="alert-info">Mínimo 4 caracteres.</span>
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
             </div>
         </div>
@@ -89,19 +101,31 @@
                         type="button" class="btn btn-default" 
                         data-toggle="modal" 
                         data-target="#myModal"
-                        @(cantRegistrados>=CantidadParticipantes?"disabled":"")
+                        @((cantRegistrados>=CantidadParticipantes || cantRegistrados2>=CantidadParticipantes2)?"disabled":"")
                         >Registrar</button>
                 <span id="msgCupoMaximo" style="display:none" class="alert-danger">Cupo agotado</span>
             </div>
         </div>
     }
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="panel panel-info">
-            <div class="panel-heading">Descripción de taller</div>
+            <div class="panel-heading">Descripción de Taller del Feb-28</div>
             <div class="panel-body">
                 <div id="descripcionTaller">
                     <p>
                         @(String.IsNullOrEmpty(defDescripcion) ? "No hay descripción disponible" : defDescripcion)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">Descripción de Taller del Mar-01</div>
+            <div class="panel-body">
+                <div id="descripcionTaller2">
+                    <p>
+                        @(String.IsNullOrEmpty(defDescripcion2) ? "No hay descripción disponible" : defDescripcion2)
                     </p>
                 </div>
             </div>
@@ -127,7 +151,7 @@
                     cantRegistrados = result.cantRegistrados;
 
                     $("#btnRegistrar").prop("disabled", cantRegistrados >= CantidadParticipantes)
-                    if (cantRegistrados >= CantidadParticipantes){
+                    if (cantRegistrados >= CantidadParticipantes) {
                         $("#msgCupoMaximo").fadeIn();
                     } else {
                         $("#msgCupoMaximo").fadeOut();
@@ -137,6 +161,37 @@
                     $("#descripcionTaller").slideUp(500).slideDown(500);
                     $("#descripcionTaller>p").fadeOut(500).fadeIn(500);
                     setTimeout(function () { $("#descripcionTaller>p").html(descripcion) }, 500);
+                },
+                error: function (xhr, status, error) {
+                    alert(error);
+                }
+            });
+        });
+        $("#ID_Taller2").change(function () {
+            tallerID = $(this).val();
+            $.ajax({
+                url: '/Taller2/getDescripcion',
+                type: 'get',
+                data: { id: tallerID },
+                dataType: 'JSON',
+                success: function (result, status, xhr) {
+                    descripcion = result.descripcion == null ? "No hay descripción disponible"
+                        : result.descripcion;
+
+                    CantidadParticipantes = result.CantidadParticipantes;
+                    cantRegistrados = result.cantRegistrados;
+
+                    $("#btnRegistrar").prop("disabled", cantRegistrados >= CantidadParticipantes)
+                    if (cantRegistrados >= CantidadParticipantes) {
+                        $("#msgCupoMaximo").fadeIn();
+                    } else {
+                        $("#msgCupoMaximo").fadeOut();
+                    }
+
+
+                    $("#descripcionTaller2").slideUp(500).slideDown(500);
+                    $("#descripcionTaller2>p").fadeOut(500).fadeIn(500);
+                    setTimeout(function () { $("#descripcionTaller2>p").html(descripcion) }, 500);
                 },
                 error: function (xhr, status, error) {
                     alert(error);

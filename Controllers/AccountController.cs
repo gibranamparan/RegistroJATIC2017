@@ -159,6 +159,8 @@ namespace RegistroJATICS.Controllers
                 ViewBag.Taller = new SelectList(db.Talleres, "ID_Taller", "Nombre_Taller");*/
 
                 ViewBag.Institucion = new SelectList(db.Institucions.OrderBy(ins => ins.Nombre), "Nombre", "Nombre");
+
+                //Datos para taller de 1er dia
                 var talleres = db.Talleres.OrderBy(tall => tall.Nombre_Taller);
                 string defDescripcion = talleres.FirstOrDefault().Descripcion;
                 ViewBag.defDescripcion = defDescripcion;
@@ -167,6 +169,16 @@ namespace RegistroJATICS.Controllers
                 int cantRegistrados = talleres.FirstOrDefault().cantRegistrados;
                 ViewBag.cantRegistrados = cantRegistrados;
                 ViewBag.Taller = new SelectList(talleres, "ID_Taller", "Nombre_Taller");
+
+                //Datos para taller de 2do dia
+                var talleres2 = db.Taller2.OrderBy(tall => tall.Nombre_Taller);
+                string defDescripcion2 = talleres2.FirstOrDefault().Descripcion;
+                ViewBag.defDescripcion2 = defDescripcion2;
+                int CantidadParticipantes2 = talleres2.FirstOrDefault().CantidadParticipantes;
+                ViewBag.CantidadParticipantes2 = CantidadParticipantes2;
+                int cantRegistrados2 = talleres2.FirstOrDefault().cantRegistrados;
+                ViewBag.cantRegistrados2 = cantRegistrados2;
+                ViewBag.Taller2 = new SelectList(talleres2, "ID_Taller2", "Nombre_Taller");
 
                 return View();
             }            
@@ -183,7 +195,7 @@ namespace RegistroJATICS.Controllers
             //Si todavia hay cupo
             if (ModelState.IsValid && taller.cantRegistrados < taller.CantidadParticipantes)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, ID_Taller = model.ID_Taller, Nombre = model.Nombre_Institucion, NombreCompleto  = model.NombreAsistente };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, ID_Taller = model.ID_Taller, ID_Taller2 = model.ID_Taller2, Nombre = model.Nombre_Institucion, NombreCompleto  = model.NombreAsistente };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -497,6 +509,7 @@ namespace RegistroJATICS.Controllers
             //SELECT LIST PARA NOMBRE DE INSTITUCION
             ViewBag.Nombre = new SelectList(db.Institucions.ToList(), "Nombre", "Nombre",user.Nombre);
             ViewBag.ID_Taller = new SelectList(db.Talleres.ToList(), "ID_Taller", "Nombre_Taller",user.ID_Taller);
+            ViewBag.ID_Taller2 = new SelectList(db.Taller2.ToList(), "ID_Taller2", "Nombre_Taller", user.ID_Taller2);
             return View("Edit2",user);
         }
 
@@ -514,7 +527,8 @@ namespace RegistroJATICS.Controllers
                 //SELECT LIST PARA NOMBRE DE INSTITUCION
             ViewBag.Nombre = new SelectList(db.Institucions.ToList(), "Nombre", "Nombre");
                 //SELECT LIST PARA NOMBRE DE TALLER
-            ViewBag.ID_Taller = new SelectList(db.Talleres.ToList(), "ID_Taller", "Nombre_Taller");
+            ViewBag.ID_Taller = new SelectList(db.Talleres.ToList(), "ID_Taller", "Nombre_Taller", user.ID_Taller);
+            ViewBag.ID_Taller2 = new SelectList(db.Taller2.ToList(), "ID_Taller2", "Nombre_Taller", user.ID_Taller2);
             return View("Edit2", user);
         }
 

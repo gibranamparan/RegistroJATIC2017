@@ -23,6 +23,11 @@ namespace RegistroJATICS.Models
         public int ID_Taller { get; set; }
         public virtual Taller Taller { get; set; }
 
+        [ForeignKey("Taller2")]
+        [Display(Name = "Taller")]
+        public int? ID_Taller2 { get; set; }
+        public virtual Taller2 Taller2 { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -48,5 +53,7 @@ namespace RegistroJATICS.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<RegistroJATICS.Models.Taller2> Taller2 { get; set; }
     }
 }

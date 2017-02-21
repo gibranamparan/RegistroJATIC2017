@@ -1,10 +1,11 @@
-﻿@model IEnumerable<RegistroJATICS.Models.Taller>
+﻿@model IEnumerable<RegistroJATICS.Models.Taller2>
 
 @{
-    ViewBag.Title = "Lista de Talleres";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Talleres del 28 de Febrero</h2>
+<h2>Talleres del 01 de Marzo</h2>
 
 <p>
     @Html.ActionLink("Agregar Taller", "Create")
@@ -41,11 +42,11 @@
         </td>
         <td style="width:8em">
             <i class="glyphicon glyphicon-edit"></i>
-            @Html.ActionLink("Editar", "Edit", new { id = item.ID_Taller }) <br />
+            @Html.ActionLink("Editar", "Edit", new { id=item.ID_Taller2 }) <br />
             <i class="glyphicon glyphicon-info-sign"></i>
-            @Html.ActionLink("Detalles", "Details", new { id = item.ID_Taller }) <br />
+            @Html.ActionLink("Detalles", "Details", new { id=item.ID_Taller2 }) <br />
             <i class="glyphicon glyphicon-remove"></i>
-            @Html.ActionLink("Borrar", "Delete", new { id = item.ID_Taller })
+            @Html.ActionLink("Borrar", "Delete", new { id=item.ID_Taller2 })
         </td>
     </tr>
 }
