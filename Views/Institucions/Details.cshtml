@@ -35,16 +35,18 @@
                 <thead>
                     <tr>
                         <th>@Html.DisplayNameFor(model => model.Usuarios.FirstOrDefault().NombreCompleto)</th>
-                        <th>@Html.DisplayNameFor(model => model.Usuarios.FirstOrDefault().Institucion)</th>
+                        <th>@("28 - Febrero")</th>
+                        <th>@("01 - Marzo")</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var asistente in Model.Usuarios)
+                    @foreach (var asistente in Model.Usuarios.Where(usu => !usu.Roles.ElementAt(0).RoleId.Equals("admin")))
                     {
                         <tr>
                             <td>@Html.DisplayFor(model => asistente.NombreCompleto)</td>
-                            <td>@Html.DisplayFor(model => asistente.Institucion.Nombre)</td>
+                            <td>@Html.DisplayFor(model => asistente.Taller.Nombre_Taller)</td>
+                            <td>@Html.DisplayFor(model => asistente.Taller2.Nombre_Taller)</td>
                             @if (asistente.Roles.ElementAt(0).RoleId.Equals("visitante"))
                             {
                                 <td>
