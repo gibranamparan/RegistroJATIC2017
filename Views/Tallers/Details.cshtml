@@ -54,10 +54,20 @@
                     <tr>
                         <td>@Html.DisplayFor(model=>asistente.NombreCompleto)</td>
                         <td>@Html.DisplayFor(model => asistente.Institucion.Nombre)</td>
-                        <td>
-                            @Html.ActionLink("Eliminar","Delete","Account",new { id = asistente.Id },null) |
-                            @Html.ActionLink("Editar", "Edit2", "Account", new { id = asistente.Id }, null)
-                        </td>
+                        @if (asistente.Roles.ElementAt(0).RoleId.Equals("visitante"))
+                        {
+                            <td>
+                                @Html.ActionLink("Eliminar", "Delete", "Account", new { id = asistente.Id }, null) |
+                                @Html.ActionLink("Editar", "Edit2", "Account", new { id = asistente.Id }, null)
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.ActionLink("Editar", "Edit2", "Account", new { id = asistente.Id }, null)
+                            </td>
+                        }
+
                     </tr>
                 }
             </tbody>

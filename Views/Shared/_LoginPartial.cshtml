@@ -4,10 +4,9 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
-        ////Ignora estos comments, solo son para que se genere cambio 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Bienvenido " + User.Identity.GetUserName() + "!", "Edit", "Account", routeValues: new { id = User.Identity.GetUserId() }, htmlAttributes: null)
+            @Html.ActionLink("Bienvenido " + User.Identity.GetUserName() + "!", "Edit", "Account", routeValues: new { id = HttpContext.Current.User.Identity.GetUserId() }, htmlAttributes: null)
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a></li>
     </ul>
