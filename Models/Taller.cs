@@ -21,7 +21,8 @@ namespace RegistroJATICS.Models
         public virtual ICollection<ApplicationUser> Usuarios { get; set; }
 
         [Display(Name = "Participantes Registrados")]
-        public int cantRegistrados { get { return this.Usuarios != null ? this.Usuarios.Count() : 0; } }
+        public int cantRegistrados { get { return this.Usuarios != null ? 
+                    this.Usuarios.Where(usu => !usu.Roles.ElementAt(0).RoleId.Equals("admin")).Count() : 0; } }
 
         [Display(Name = "Descripción")]
         public string resumenDescripcion { get {

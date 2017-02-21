@@ -25,3 +25,47 @@
     @Html.ActionLink("Editar", "Edit", new { id = Model.Nombre }) |
     @Html.ActionLink("Regresar a Lista", "Index")
 </p>
+
+<div class="panel panel-info">
+    <div class="panel-heading">Asistentes</div>
+    <div class="panel-body">
+        @if (Model.Usuarios.Count > 0)
+        {
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Usuarios.FirstOrDefault().NombreCompleto)</th>
+                        <th>@Html.DisplayNameFor(model => model.Usuarios.FirstOrDefault().Institucion)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var asistente in Model.Usuarios)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(model => asistente.NombreCompleto)</td>
+                            <td>@Html.DisplayFor(model => asistente.Institucion.Nombre)</td>
+                            @if (asistente.Roles.ElementAt(0).RoleId.Equals("visitante"))
+                            {
+                                <td>
+                                    @Html.ActionLink("Eliminar", "Delete", "Account", new { id = asistente.Id }, null) |
+                                    @Html.ActionLink("Editar", "Edit2", "Account", new { id = asistente.Id }, null)
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @Html.ActionLink("Editar", "Edit2", "Account", new { id = asistente.Id }, null)
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-warning">No hay alumnos inscritos de esta universidad.</div>
+        }
+    </div>
+</div>

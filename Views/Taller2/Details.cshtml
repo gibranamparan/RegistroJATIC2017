@@ -51,7 +51,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var asistente in Model.Usuarios)
+                    @foreach (var asistente in Model.Usuarios.Where(usu => !usu.Roles.ElementAt(0).RoleId.Equals("admin")))
                     {
                         <tr>
                             <td>@Html.DisplayFor(model => asistente.NombreCompleto)</td>

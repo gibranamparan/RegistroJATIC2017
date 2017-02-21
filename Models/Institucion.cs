@@ -12,5 +12,10 @@ namespace RegistroJATICS.Models
         [Display(Name = "Institución")]
         public string Nombre { get; set; }
         public virtual ICollection<ApplicationUser> Usuarios { get; set; }
+
+        [Display(Name = "Visitantes Registrados")]
+        public int visitantesRegistrados{get{
+                return this.Usuarios.Where(usu => !usu.Roles.ElementAt(0).RoleId.Equals("admin")).Count();
+            } }
     }
 }
