@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RegistroJATICS.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,10 @@ namespace RegistroJATICS.Controllers
     {
         public ActionResult Index()
         {
+            if (TempData["datosConfirmacion"] != null)
+            {
+                ViewBag.datosConfirmacion = TempData["datosConfirmacion"];
+            }
             return View();
         }
 

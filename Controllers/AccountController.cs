@@ -207,7 +207,15 @@ namespace RegistroJATICS.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string nombreTaller1 = db.Talleres.Find(model.ID_Taller).Nombre_Taller;
+                    string nombreTaller2 = db.Taller2.Find(model.ID_Taller2).Nombre_Taller;
+                    VMConfirmacionRegistro datosConfirmacion = new VMConfirmacionRegistro();
 
+                    datosConfirmacion.nombreCompleto = model.NombreAsistente;
+                    datosConfirmacion.institucion = model.Nombre_Institucion;
+                    datosConfirmacion.taller1 = nombreTaller1;
+                    datosConfirmacion.taller2 = nombreTaller2;
+                    TempData["datosConfirmacion"] = datosConfirmacion;
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

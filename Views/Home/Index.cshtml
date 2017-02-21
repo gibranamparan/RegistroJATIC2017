@@ -1,8 +1,45 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    bool recienRegistrado = ViewBag.datosConfirmacion != null;
 }
 
 <div style="background-color:darkgray !important; width:100%;" class="jumbotron">
     <img style="width:100%;" src="~/MediaResources/logoJornada.png" />
     <p>@Html.ActionLink("Registrarse","Register","Account",null, new { @class = "btn btn-default btn-lg" })</p>
 </div>
+
+@if (recienRegistrado)
+{
+    var datosConfirmacion = ViewBag.datosConfirmacion;
+
+    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Gracias por registrarte</h4>
+            </div>
+            <div class="modal-body">
+                <h3>Quedaste registrado con los siguientes datos:</h3>
+                <strong>Nombre: </strong><span>@datosConfirmacion.nombreCompleto</span><br />
+                <strong>Institucion: </strong><span>@datosConfirmacion.institucion</span><br />
+                <strong>Taller 28-Feb: </strong><span>@datosConfirmacion.taller1</span><br />
+                <strong>Taller 01-Feb: </strong><span>@datosConfirmacion.taller2</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+    @section Scripts {
+        <script type="text/javascript">
+            $(window).load(function(){
+                $('#myModal').modal('show');
+            });
+        </script>
+    }
+}
