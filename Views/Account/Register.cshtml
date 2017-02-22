@@ -112,9 +112,11 @@
             <div class="panel-heading">Descripción de Taller del Feb-28</div>
             <div class="panel-body">
                 <div id="descripcionTaller">
-                    <p>
+                    <p id="defDescripcion">
                         @(String.IsNullOrEmpty(defDescripcion) ? "No hay descripción disponible" : defDescripcion)
                     </p>
+                    <p><strong>Cupo Máximo: </strong><span id="CantidadParticipantes1">@CantidadParticipantes</span></p>
+                    <p><strong>Registrados: </strong><span id="cantRegistrados1">@cantRegistrados</span></p>
                 </div>
             </div>
         </div>
@@ -124,9 +126,11 @@
             <div class="panel-heading">Descripción de Taller del Mar-01</div>
             <div class="panel-body">
                 <div id="descripcionTaller2">
-                    <p>
+                    <p id="defDescripcion2">
                         @(String.IsNullOrEmpty(defDescripcion2) ? "No hay descripción disponible" : defDescripcion2)
                     </p>
+                    <p><strong>Cupo Máximo: </strong><span id="CantidadParticipantes2">@CantidadParticipantes2</span></p>
+                    <p><strong>Registrados: </strong><span id="cantRegistrados2">@cantRegistrados2</span></p>
                 </div>
             </div>
         </div>
@@ -160,7 +164,11 @@
 
                     $("#descripcionTaller").slideUp(500).slideDown(500);
                     $("#descripcionTaller>p").fadeOut(500).fadeIn(500);
-                    setTimeout(function () { $("#descripcionTaller>p").html(descripcion) }, 500);
+                    setTimeout(function () {
+                        $("#defDescripcion").html(descripcion);
+                        $("#CantidadParticipantes1").html(CantidadParticipantes);
+                        $("#cantRegistrados1").html(cantRegistrados);
+                    }, 500);
                 },
                 error: function (xhr, status, error) {
                     alert(error);
@@ -191,7 +199,11 @@
 
                     $("#descripcionTaller2").slideUp(500).slideDown(500);
                     $("#descripcionTaller2>p").fadeOut(500).fadeIn(500);
-                    setTimeout(function () { $("#descripcionTaller2>p").html(descripcion) }, 500);
+                    setTimeout(function () {
+                        $("#defDescripcion2").html(descripcion);
+                        $("#CantidadParticipantes2").html(CantidadParticipantes);
+                        $("#cantRegistrados2").html(cantRegistrados);
+                    }, 500);
                 },
                 error: function (xhr, status, error) {
                     alert(error);
