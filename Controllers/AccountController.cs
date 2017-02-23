@@ -160,25 +160,29 @@ namespace RegistroJATICS.Controllers
 
                 ViewBag.Institucion = new SelectList(db.Institucions.OrderBy(ins => ins.Nombre), "Nombre", "Nombre");
 
+                Taller tallerDisponible1 = db.Talleres.ToList().FirstOrDefault(tall => tall.cantRegistrados < tall.CantidadParticipantes);
+                Taller2 tallerDisponible2 = db.Taller2.ToList().FirstOrDefault(tall => tall.cantRegistrados < tall.CantidadParticipantes);
+
                 //Datos para taller de 1er dia
                 var talleres = db.Talleres.OrderBy(tall => tall.Nombre_Taller);
-                string defDescripcion = talleres.FirstOrDefault().Descripcion;
+
+                string defDescripcion = tallerDisponible1.Descripcion;
                 ViewBag.defDescripcion = defDescripcion;
-                int CantidadParticipantes = talleres.FirstOrDefault().CantidadParticipantes;
+                int CantidadParticipantes = tallerDisponible1.CantidadParticipantes;
                 ViewBag.CantidadParticipantes = CantidadParticipantes;
-                int cantRegistrados = talleres.FirstOrDefault().cantRegistrados;
+                int cantRegistrados = tallerDisponible1.cantRegistrados;
                 ViewBag.cantRegistrados = cantRegistrados;
-                ViewBag.Taller = new SelectList(talleres, "ID_Taller", "Nombre_Taller");
+                ViewBag.Taller = new SelectList(talleres, "ID_Taller", "Nombre_Taller", tallerDisponible1.ID_Taller);
 
                 //Datos para taller de 2do dia
                 var talleres2 = db.Taller2.OrderBy(tall => tall.Nombre_Taller);
-                string defDescripcion2 = talleres2.FirstOrDefault().Descripcion;
+                string defDescripcion2 = tallerDisponible2.Descripcion;
                 ViewBag.defDescripcion2 = defDescripcion2;
-                int CantidadParticipantes2 = talleres2.FirstOrDefault().CantidadParticipantes;
+                int CantidadParticipantes2 = tallerDisponible2.CantidadParticipantes;
                 ViewBag.CantidadParticipantes2 = CantidadParticipantes2;
-                int cantRegistrados2 = talleres2.FirstOrDefault().cantRegistrados;
+                int cantRegistrados2 = tallerDisponible2.cantRegistrados;
                 ViewBag.cantRegistrados2 = cantRegistrados2;
-                ViewBag.Taller2 = new SelectList(talleres2, "ID_Taller2", "Nombre_Taller");
+                ViewBag.Taller2 = new SelectList(talleres2, "ID_Taller2", "Nombre_Taller", tallerDisponible2.ID_Taller2);
 
                 return View();
             }            
