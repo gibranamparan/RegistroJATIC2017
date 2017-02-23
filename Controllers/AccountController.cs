@@ -192,8 +192,10 @@ namespace RegistroJATICS.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             var taller = db.Talleres.Find(model.ID_Taller);
+            var taller2 = db.Taller2.Find(model.ID_Taller2);
             //Si todavia hay cupo
-            if (ModelState.IsValid && taller.cantRegistrados < taller.CantidadParticipantes)
+            if (ModelState.IsValid && taller.cantRegistrados < taller.CantidadParticipantes &&
+                taller2.cantRegistrados < taller2.CantidadParticipantes)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, ID_Taller = model.ID_Taller, ID_Taller2 = model.ID_Taller2, Nombre = model.Nombre_Institucion, NombreCompleto  = model.NombreAsistente };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -220,11 +222,26 @@ namespace RegistroJATICS.Controllers
                 }
                 AddErrors(result);
             }
-            ViewBag.Institucion = new SelectList(db.Institucions.OrderBy(ins => ins.Nombre), "Nombre", "Nombre", model.Nombre_Institucion);
+
+            //Datos para taller de 1er dia
             var talleres = db.Talleres.OrderBy(tall => tall.Nombre_Taller);
             string defDescripcion = talleres.FirstOrDefault().Descripcion;
             ViewBag.defDescripcion = defDescripcion;
-            ViewBag.Taller = new SelectList(talleres, "ID_Taller", "Nombre_Taller", model.ID_Taller);
+            int CantidadParticipantes = talleres.FirstOrDefault().CantidadParticipantes;
+            ViewBag.CantidadParticipantes = CantidadParticipantes;
+            int cantRegistrados = talleres.FirstOrDefault().cantRegistrados;
+            ViewBag.cantRegistrados = cantRegistrados;
+            ViewBag.Taller = new SelectList(talleres, "ID_Taller", "Nombre_Taller");
+
+            //Datos para taller de 2do dia
+            var talleres2 = db.Taller2.OrderBy(tall => tall.Nombre_Taller);
+            string defDescripcion2 = talleres2.FirstOrDefault().Descripcion;
+            ViewBag.defDescripcion2 = defDescripcion2;
+            int CantidadParticipantes2 = talleres2.FirstOrDefault().CantidadParticipantes;
+            ViewBag.CantidadParticipantes2 = CantidadParticipantes2;
+            int cantRegistrados2 = talleres2.FirstOrDefault().cantRegistrados;
+            ViewBag.cantRegistrados2 = cantRegistrados2;
+            ViewBag.Taller2 = new SelectList(talleres2, "ID_Taller2", "Nombre_Taller");
 
             // If we got this far, something failed, redisplay form
             return View(model);

@@ -10,6 +10,7 @@ using RegistroJATICS.Models;
 
 namespace RegistroJATICS.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class Taller2Controller : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

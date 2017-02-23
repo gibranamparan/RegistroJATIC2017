@@ -9,6 +9,8 @@
     int CantidadParticipantes2 = ViewBag.CantidadParticipantes2;
     int cantRegistrados2 = ViewBag.cantRegistrados2;
 
+    string btnDisabled = (cantRegistrados >= CantidadParticipantes || cantRegistrados2 >= CantidadParticipantes2) ? "disabled" : "";
+    string displayAlert = string.IsNullOrEmpty(btnDisabled) ? "none" : "inline";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -101,9 +103,9 @@
                         type="button" class="btn btn-default" 
                         data-toggle="modal" 
                         data-target="#myModal"
-                        @((cantRegistrados>=CantidadParticipantes || cantRegistrados2>=CantidadParticipantes2)?"disabled":"")
+                        @btnDisabled
                         >Registrar</button>
-                <span id="msgCupoMaximo" style="display:none" class="alert-danger">Cupo agotado</span>
+                <span id="msgCupoMaximo" style="display:@displayAlert" class="alert-danger">Agotado, selecciona 2 talleres con cupo</span>
             </div>
         </div>
     }
@@ -140,6 +142,10 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
+        var CantidadParticipantes = @CantidadParticipantes;
+        var CantidadParticipantes = @CantidadParticipantes;
+        var cantRegistrados = @cantRegistrados;
+        var cantRegistrados2 = @cantRegistrados2;
         $("#ID_Taller").change(function () {
             tallerID = $(this).val();
             $.ajax({
@@ -153,14 +159,8 @@
 
                     CantidadParticipantes = result.CantidadParticipantes;
                     cantRegistrados = result.cantRegistrados;
-
-                    $("#btnRegistrar").prop("disabled", cantRegistrados >= CantidadParticipantes)
-                    if (cantRegistrados >= CantidadParticipantes) {
-                        $("#msgCupoMaximo").fadeIn();
-                    } else {
-                        $("#msgCupoMaximo").fadeOut();
-                    }
-
+                    
+                    setEnableDisableRegistro();
 
                     $("#descripcionTaller").slideUp(500).slideDown(500);
                     $("#descripcionTaller>p").fadeOut(500).fadeIn(500);
@@ -186,23 +186,18 @@
                     descripcion = result.descripcion == null ? "No hay descripción disponible"
                         : result.descripcion;
 
-                    CantidadParticipantes = result.CantidadParticipantes;
-                    cantRegistrados = result.cantRegistrados;
+                    CantidadParticipantes2 = result.CantidadParticipantes;
+                    cantRegistrados2 = result.cantRegistrados;
 
-                    $("#btnRegistrar").prop("disabled", cantRegistrados >= CantidadParticipantes)
-                    if (cantRegistrados >= CantidadParticipantes) {
-                        $("#msgCupoMaximo").fadeIn();
-                    } else {
-                        $("#msgCupoMaximo").fadeOut();
-                    }
+                    setEnableDisableRegistro();
 
 
                     $("#descripcionTaller2").slideUp(500).slideDown(500);
                     $("#descripcionTaller2>p").fadeOut(500).fadeIn(500);
                     setTimeout(function () {
                         $("#defDescripcion2").html(descripcion);
-                        $("#CantidadParticipantes2").html(CantidadParticipantes);
-                        $("#cantRegistrados2").html(cantRegistrados);
+                        $("#CantidadParticipantes2").html(CantidadParticipantes2);
+                        $("#cantRegistrados2").html(cantRegistrados2);
                     }, 500);
                 },
                 error: function (xhr, status, error) {
@@ -212,6 +207,16 @@
         });
         $("input#NombreAsistente").keyup(function () {
             $("#confirmaNombreCompleto").html($(this).val());
-        })
+        });
+
+        function setEnableDisableRegistro(){
+            var canRegister= cantRegistrados < CantidadParticipantes && cantRegistrados2 < CantidadParticipantes2;
+            $("#btnRegistrar").prop("disabled", !canRegister)
+            if (!canRegister) {
+                $("#msgCupoMaximo").fadeIn();
+            } else {
+                $("#msgCupoMaximo").fadeOut();
+            }
+        }
     </script>
 }

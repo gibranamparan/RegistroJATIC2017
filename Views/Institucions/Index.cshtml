@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Lista de Instituciones";
+    int totalVisitantes = Model.Sum(ins=>ins.visitantesRegistrados);
 }
 
 <h2>Lista de Instituciones</h2>
@@ -37,3 +38,4 @@
 }
 
 </table>
+<strong>Total: </strong><span>@totalVisitantes</span>
