@@ -2,47 +2,34 @@
 
 @{
     ViewBag.Title = "Detalles";
+    int numLista = 1;
 }
 
-<h2>Detalles</h2>
-
 <div>
-    <h4>Taller</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre_Taller)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nombre_Taller)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.resumenDescripcion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CantidadParticipantes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CantidadParticipantes)
-        </dd>
-
-    </dl>
+    <h4><strong>Taller:</strong> @Model.Nombre_Taller</h4>
+    <div class="row">
+        <div class="col-md-12 hidden-print">
+            <strong>@Html.DisplayNameFor(model => model.Descripcion)</strong>
+            <span>@Html.DisplayFor(model => model.Descripcion)</span>
+        </div>
+        <div class="col-md-4">
+            <strong>Fecha</strong>
+            <span>28 de Febrero de 2017</span>
+        </div>
+        <div class="col-md-4">
+            <strong>@Html.DisplayNameFor(model => model.CantidadParticipantes)</strong>
+            <span>@Html.DisplayFor(model => model.CantidadParticipantes)</span>
+        </div>
+    </div>
 </div>
 <div class="panel panel-info">
-    <div class="panel-heading">Asistentes</div>
+    <div class="panel-heading hidden-print">Asistentes</div>
     <div class="panel-body">
         @if (Model.Usuarios.Count > 0) { 
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
+                    <td>Num.</td>
                     <th>@Html.DisplayNameFor(model=>model.Usuarios.FirstOrDefault().NombreCompleto)</th>
                     <th>@Html.DisplayNameFor(model => model.Usuarios.FirstOrDefault().Institucion)</th>
                     <th></th>
@@ -52,23 +39,25 @@
                 @foreach(var asistente in Model.Usuarios.Where(usu => !usu.Roles.ElementAt(0).RoleId.Equals("admin")))
                 {
                     <tr>
+                        <td>@numLista</td>
                         <td>@Html.DisplayFor(model=>asistente.NombreCompleto)</td>
                         <td>@Html.DisplayFor(model => asistente.Institucion.Nombre)</td>
                         @if (asistente.Roles.ElementAt(0).RoleId.Equals("visitante"))
                         {
-                            <td>
+                            <td class="hidden-print">
                                 @Html.ActionLink("Eliminar", "Delete", "Account", new { id = asistente.Id }, null) |
                                 @Html.ActionLink("Editar", "Edit2", "Account", new { id = asistente.Id }, null)
                             </td>
                         }
                         else
                         {
-                            <td>
+                            <td  class="hidden-print">
                                 @Html.ActionLink("Editar", "Edit2", "Account", new { id = asistente.Id }, null)
                             </td>
                         }
 
                     </tr>
+                    numLista++;
                 }
             </tbody>
         </table>
@@ -78,7 +67,7 @@
         }
     </div>
 </div>
-<p>
+<p class="hidden-print">
     @Html.ActionLink("Editar", "Edit", new { id = Model.ID_Taller }) |
     @Html.ActionLink("Regresar a Lista", "Index")
 </p>
